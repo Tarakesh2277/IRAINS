@@ -206,7 +206,6 @@ export class DepartureMapComponent implements OnInit, AfterViewInit {
     // console.log(this.currentDateDaily, "dateeeeee")
   }
   fetchDataFromBackend(): void {
-    this.loadGeoJSON();
     this.dataService.fetchMasterFile().pipe(
       concatMap(masterData => {
         this.fetchedMasterData = masterData;
@@ -235,12 +234,14 @@ export class DepartureMapComponent implements OnInit, AfterViewInit {
       concatMap(fetchedData6 => {
         this.fetchedData6 = fetchedData6;
         this.processFetchedDataregionnormal();
-        return this.dataService.fetchData7(); // or any observable to complete the chain
+        return this.dataService.fetchData7(); 
       }),
       concatMap(fetchedData7 => {
         this.fetchedData7 = fetchedData7;
         this.processFetchedDatacountrynormal();
-        return EMPTY; // or any observable to complete the chain
+         this.loadGeoJSON();
+        return EMPTY; 
+       
       })
     ).subscribe(
       () => { },
